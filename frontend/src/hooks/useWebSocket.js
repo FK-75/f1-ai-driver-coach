@@ -55,6 +55,8 @@ export function useWebSocket() {
     setCues([])
     setSectorDeltas([null, null, null])
     setNewPb(false)
+    setFixtureInfo(null)
+    setLapKey(k => k + 1)  // triggers TrackMap to re-fetch (will get new fixture)
     pendingPointsRef.current = []
     pendingCuesRef.current = []
   }

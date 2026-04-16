@@ -29,9 +29,20 @@ export function LapSelector({ onSelect, disabled }) {
   const circuitLaps = selectedCircuit ? (circuits[selectedCircuit] || []) : []
 
   function handleCircuitChange(e) {
-    setSelectedCircuit(e.target.value)
-    setSelectedLapId(-1)
-    onSelect(-1)
+    const val = e.target.value
+    setSelectedCircuit(val)
+    if (val) {
+      // Auto-select the fastest lap in this circuit as a circuit-demo
+      const cLaps = circuits[val] || []
+      const fastest = cLaps.reduce((a, b) => b.lap_time_s < a.lap_time_s ? b : a, cLaps[0])
+      if (fastest) {
+        setSelectedLapId(fastest.id)
+        onSelect(fastest.id)
+      }
+    } else {
+      setSelectedLapId(-1)
+      onSelect(-1)
+    }
   }
 
   function handleLapChange(e) {
@@ -69,13 +80,12 @@ export function LapSelector({ onSelect, disabled }) {
       <span style={{ fontFamily: 'JetBrains Mono', fontSize: 9, color: '#444' }}>LAP</span>
 
       <select value={selectedCircuit} onChange={handleCircuitChange} disabled={disabled} style={sel}>
-        <option value="">Demo</option>
+        <option value="">Demo (Silverstone)</option>
         {circuitKeys.map(k => <option key={k} value={k}>{k}</option>)}
       </select>
 
       {selectedCircuit && (
         <select value={selectedLapId} onChange={handleLapChange} disabled={disabled} style={sel}>
-          <option value={-1}>— driver —</option>
           {circuitLaps.map(lap => (
             <option key={lap.id} value={lap.id}>
               {lap.driver}  {lap.lap_time_s.toFixed(3)}s
