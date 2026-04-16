@@ -1,0 +1,51 @@
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.pyc
+
+# ── Virtual environments ──────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+.env
+
+# ── Data — never commit large binaries or FastF1 cache ───────────────────────
+data/fastf1_cache/
+data/*.pkl
+data/*.pt
+data/*.onnx
+data/*.onnx.data
+data/*.json
+data/*.sqlite
+data/models/
+# Keep the .gitkeep so the data/ directory exists after clone
+!data/.gitkeep
+
+# ── Frontend ──────────────────────────────────────────────────────────────────
+node_modules/
+frontend/dist/
+frontend/.vite/
+
+# ── macOS ─────────────────────────────────────────────────────────────────────
+.DS_Store
+__MACOSX/
+
+# ── Editor ────────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ── Misc ──────────────────────────────────────────────────────────────────────
+*.log
+.pytest_cache/
+.mypy_cache/
+mnt/
